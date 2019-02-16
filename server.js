@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const passport = require("passport");
 
 // Import route code
 const users = require("./routes/api/users");
@@ -26,8 +27,13 @@ mongoose
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
+// Passport middleware
+app.use(passport.initialize());
+
+// Passport Config
+require("./config/passport")(passport);
+
 // Routes
-app.get("/", (req, res) => res.send("Hello World"));
 app.use("/api/users", users); // Authentication route
 app.use("/api/games", games); // A list of every game tracked
 app.use("/api/game", game); // A list of every shot during a game
