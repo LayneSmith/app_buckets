@@ -1,8 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 
 // Import route code
-const user = require("./routes/api/user");
+const users = require("./routes/api/users");
 const games = require("./routes/api/games");
 const game = require("./routes/api/game");
 const teams = require("./routes/api/teams");
@@ -11,6 +12,10 @@ const players = require("./routes/api/players");
 const player = require("./routes/api/player");
 
 const app = express();
+
+// Body parser middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // DB config from vars in config/keys.js file, similar in function to .env file
 const db = require("./config/keys").mongoURI;
@@ -23,7 +28,7 @@ mongoose
 
 // Routes
 app.get("/", (req, res) => res.send("Hello World"));
-app.use("/api/user", user); // Authentication route
+app.use("/api/users", users); // Authentication route
 app.use("/api/games", games); // A list of every game tracked
 app.use("/api/game", game); // A list of every shot during a game
 app.use("/api/teams", teams); // A list of every team
