@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 // Import route code
-const auth = require("./routes/api/auth");
+const user = require("./routes/api/user");
 const games = require("./routes/api/games");
 const game = require("./routes/api/game");
 const teams = require("./routes/api/teams");
@@ -23,7 +23,7 @@ mongoose
 
 // Routes
 app.get("/", (req, res) => res.send("Hello World"));
-app.use("/api/auth", auth); // Authentication route
+app.use("/api/user", user); // Authentication route
 app.use("/api/games", games); // A list of every game tracked
 app.use("/api/game", game); // A list of every shot during a game
 app.use("/api/teams", teams); // A list of every team
